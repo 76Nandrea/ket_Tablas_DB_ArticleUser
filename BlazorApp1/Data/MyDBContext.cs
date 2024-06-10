@@ -8,7 +8,7 @@ namespace BlazorApp1.Data
     {
         public MyDBContext(DbContextOptions<MyDBContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Article> Article { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Article> article { get; set; }
     }
 }

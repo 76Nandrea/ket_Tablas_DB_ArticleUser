@@ -1,0 +1,51 @@
+﻿@page "/articles"
+@using BlazorApp1.Model
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject BlazorApp1.Data.MyDBContext DB
+@rendermode InteractiveServer
+
+
+<h3>Article</h3>
+<hr/>
+
+
+<div class="page-size-chooser">
+    Items per page:
+    <select @bind="@pagination.ItemsPerPage">
+        <option>5</option>
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+    </select>
+</div>
+
+<div class="page-size-chooser">
+   Users:
+    <select @bind="@userSelectId">
+        <option>----</option>
+        @foreach (var item in DB.users)
+        {
+            <option value="@item.UserID">@item.UserName</option>
+        }
+    </select>
+</div>
+
+
+<QuickGrid Class="table" Items="userSelectId is null ? DB.article : DB.article.Where(x=>x.UserId==userSelectId)" Pagination="pagination">
+    <PropertyColumn Title="Name" Property="x=>x.Title" Sortable="true" />
+    <PropertyColumn Title="Content" Property="x=>x.Content" Sortable="true" />
+    <PropertyColumn Title="Date" Property="x=>x.PublishedDate" Sortable="true" Format="yyyy.MM.dd"/>
+
+</QuickGrid>
+
+<Paginator State="pagination" />
+
+@code {
+    PaginationState pagination = new PaginationState { ItemsPerPage = 5 };
+
+    public int?  userSelectId { get; set; }
+
+
+
+
+}
