@@ -22,7 +22,7 @@
 <div class="page-size-chooser">
    Users:
     <select @bind="@userSelectId">
-        <option>----</option>
+        <option value="">All</option>
         @foreach (var item in DB.users)
         {
             <option value="@item.UserID">@item.UserName</option>
